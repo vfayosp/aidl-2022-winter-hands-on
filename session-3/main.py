@@ -15,10 +15,17 @@ device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cp
 
 def train_single_epoch(model, train_loader, optimizer):
     model.train()
+    criterion = torch.nn.MSELoss()
     accs, losses = [], []
     for x, y in train_loader:
         # You will need to do y = y.unsqueeze(1).float() to add an output dimension to the labels and cast to the correct type
-        ...
+        x=x.unsqueeze(1).float()
+        optimizer.zero_grad()
+        y_ = model(x)
+        loss = criterion(y_,y)
+        loss.backward(),
+        optimizer.step()
+        acc = binary_accuracy(y, y_)
         losses.append(loss.item())
         accs.append(acc.item())
     return np.mean(losses), np.mean(accs)
