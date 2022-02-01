@@ -141,13 +141,13 @@ if __name__ == "__main__":
     train_loader, val_loader = load_data()
 
     # TODO instantiate a ResNet18 model from Torchvision with 2 classes and move it to the device
-    model = ...
+    model = models.resnet18()
 
     # TODO Use the correct loss function for classification (not binary). The network doesn't have an activation at the end.
-    criterion = ...
+    criterion = torch.nn.CrossEntropyLoss()
 
     # TODO Use Adam with default lr to train the model
-    optimizer = ...
+    optimizer = optim.Adam(model.parameters())
     # Decay LR by a factor of 0.1 every 7 epochs
     scheduler = lr_scheduler.StepLR(optimizer, step_size=7, gamma=0.1)
 
